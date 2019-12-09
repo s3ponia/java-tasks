@@ -153,23 +153,16 @@ public class PopularMap<K, V> implements Map<K, V> {
      * Возвращает количество использование ключа
      */
     public int getKeyPopularity(K key) {
-        Integer keyPopularity = popularityKey.get(key);
-        return keyPopularity == null ? 0 : keyPopularity;
+        return popularityKey.getOrDefault(key, 0);
     }
 
     /**
      * Возвращает самое популярное, на данный момент, значение. Надо учесть что значени может быть более одного
      */
     public V getPopularValue() {
-        V maxVal = null;
-        Integer maxValValue = 0;
-        for (Map.Entry<V, Integer> entry : popularityValue.entrySet()) {
-            if (entry.getValue().compareTo(maxValValue) > 0) {
-                maxValValue = entry.getValue();
-                maxVal = entry.getKey();
-            }
-        }
-        return maxVal;
+        return popularityValue.entrySet().stream()
+                .max(Comparator.comparing(Map.Entry::getValue))
+                .get().getKey();
     }
 
     /**
@@ -177,8 +170,7 @@ public class PopularMap<K, V> implements Map<K, V> {
      * старое значение и новое - одно и тоже), remove (считаем по старому значению).
      */
     public int getValuePopularity(V value) {
-        Integer valuePopularity = popularityValue.get(value);
-        return valuePopularity == null ? 0 : valuePopularity;
+        return popularityValue.getOrDefault(value, 0);
     }
 
     /**
