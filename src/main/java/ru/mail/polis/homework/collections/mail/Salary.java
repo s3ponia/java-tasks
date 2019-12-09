@@ -1,23 +1,10 @@
 package ru.mail.polis.homework.collections.mail;
 
-public class Salary implements Mail {
-    private String recipient;
-    private String sender;
+public class Salary extends Mail {
     private long salary;
 
     public Salary(String recipient, String sender, long salary) {
-        this.recipient = recipient;
-        this.sender = sender;
+        super(recipient, sender);
         this.salary = salary;
-    }
-
-    @Override
-    public String getRecipient() {
-        return recipient;
-    }
-
-    @Override
-    public String getSender() {
-        return sender;
     }
 }

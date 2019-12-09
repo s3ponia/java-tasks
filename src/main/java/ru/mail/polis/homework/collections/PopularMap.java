@@ -143,15 +143,9 @@ public class PopularMap<K, V> implements Map<K, V> {
      * Возвращает самый популярный, на данный момент, ключ
      */
     public K getPopularKey() {
-        K maxKey = null;
-        Integer maxKeyValue = 0;
-        for (Map.Entry<K, Integer> entry : popularityKey.entrySet()) {
-            if (entry.getValue().compareTo(maxKeyValue) > 0) {
-                maxKeyValue = entry.getValue();
-                maxKey = entry.getKey();
-            }
-        }
-        return maxKey;
+        return popularityKey.entrySet().stream()
+                .max(Comparator.comparing(Map.Entry::getValue))
+                .get().getKey();
     }
 
 
